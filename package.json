@@ -2,7 +2,7 @@
   "name": "notes",
   "version": "1.0.0",
   "description": "notes directory ui",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "test": "echo \\\"Error: no test specified\\\" && exit 1"
   },
@@ -13,7 +13,10 @@
   "keywords": [
     "notes"
   ],
-  "author": "Jason Brazeal",
+  "author": { "name" : "Jason Brazeal",
+              "email" : "jsonbrazeal@gmail.com",
+              "url" : "http://jasonbrazeal.com/"
+            },
   "license": "",
   "bugs": {
     "url": "https://github.com/jsonbrazeal/notes/issues"
