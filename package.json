@@ -1,0 +1,22 @@
+{
+  "name": "notes",
+  "version": "1.0.0",
+  "description": "notes directory ui",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \\\"Error: no test specified\\\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jsonbrazeal/notes.git"
+  },
+  "keywords": [
+    "notes"
+  ],
+  "author": "Jason Brazeal",
+  "license": "",
+  "bugs": {
+    "url": "https://github.com/jsonbrazeal/notes/issues"
+  },
+  "homepage": "https://github.com/jsonbrazeal/notes#readme"
+}
