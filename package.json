@@ -2,24 +2,40 @@
   "name": "notes",
   "version": "1.0.0",
   "description": "notes directory ui",
-  "main": "main.js",
+  "keywords": [
+    "notes"
+  ],
+  "license": "",
+  "author": {
+    "name": "Jason Brazeal",
+    "email": "jsonbrazeal@gmail.com",
+    "url": "http://jasonbrazeal.com/"
+  },
   "scripts": {
-    "test": "echo \\\"Error: no test specified\\\" && exit 1"
+    "test": "echo \\\"Error: no test specified\\\"",
+    "start": "node_modules/.bin/webpack-dev-server --progress --colors --port 2992 --content-base build/public",
+    "build": "node_modules/.bin/webpack --display-error-details --config webpack.config.js --progress --profile --colors"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jsonbrazeal/notes.git"
   },
-  "keywords": [
-    "notes"
-  ],
-  "author": { "name" : "Jason Brazeal",
-              "email" : "jsonbrazeal@gmail.com",
-              "url" : "http://jasonbrazeal.com/"
-            },
-  "license": "",
+  "homepage": "https://github.com/jsonbrazeal/notes#readme",
   "bugs": {
     "url": "https://github.com/jsonbrazeal/notes/issues"
   },
-  "homepage": "https://github.com/jsonbrazeal/notes#readme"
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "react": "^15.6.1"
+  },
+  "devDependencies": {
+    "css-loader": "^0.28.4",
+    "extract-text-webpack-plugin": "^2.1.2",
+    "file-loader": "^0.11.2",
+    "image-webpack-loader": "^3.3.1",
+    "script-loader": "^0.7.0",
+    "style-loader": "^0.18.2",
+    "webpack": "^3.0.0",
+    "webpack-dev-server": "^2.5.0"
+  }
 }
