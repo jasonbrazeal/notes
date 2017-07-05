@@ -21,7 +21,7 @@ module.exports = {
         chunkFilename: '[id].[chunkhash].js'
     },
     resolve: {
-        extensions: ['.js']
+        extensions: ['.js', '.jsx']
     },
     module: {
         rules: [
@@ -29,11 +29,14 @@ module.exports = {
             //     test: /\.js$/i, loader: 'script-loader',
             //     exclude: /node_modules/
             // },
-            // {
-            //     test: /\.js[x]?$/,
-            //     loaders: ['babel-loader?presets[]=es2015&presets[]=react'],
-            //     exclude: /(node_modules|bower_components)/
-            // },
+            {
+                test: /\.js[x]?$/,
+                loader: 'babel-loader',
+                query: {
+                  'presets': ['latest', 'react']
+                },
+                exclude: /node_modules/
+            },
             {
                 test: /\.(jpe?g|png|gif|svg([\?]?.*))$/i,
                 use: [

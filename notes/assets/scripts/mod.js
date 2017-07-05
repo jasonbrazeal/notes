@@ -1,6 +1,5 @@
-// var mod = function (v) {
-//     ///code
-//     return "it";
-// };
+var mod = function (v) {
+    return "it";
+};
 
-// module.exports = mod;
+module.exports = mod;
