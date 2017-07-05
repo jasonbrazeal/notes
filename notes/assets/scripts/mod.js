@@ -1,5 +1,5 @@
 var mod = function (v) {
-    return "it";
+    return "returned from mod.js";
 };
 
 module.exports = mod;

@@ -13,7 +13,7 @@
   },
   "scripts": {
     "test": "echo \\\"Error: no test specified\\\"",
-    "start": "node_modules/.bin/webpack-dev-server --progress --inline --colors --port 2222 --content-base build/public",
+    "start": "node_modules/.bin/webpack-dev-server --progress --inline --colors",
     "build": "node_modules/.bin/webpack --display-error-details --config webpack.config.js --progress --profile --colors"
   },
   "repository": {

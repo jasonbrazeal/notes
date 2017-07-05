@@ -20,6 +20,20 @@ module.exports = {
         filename: '[name].[chunkhash].js',
         chunkFilename: '[id].[chunkhash].js'
     },
+    devServer: {
+      contentBase: __dirname + '/build/public',
+      // compress: true,
+      port: 2222,
+      // go to http://localhost:2222 for development
+      // this proxy setting will forward requests to the flask dev server
+      proxy: {
+       '/': {
+         target: 'http://localhost:5000',
+         // pathRewrite: {'^/api' : ''}
+      }
+    }
+    },
+
     resolve: {
         extensions: ['.js', '.jsx']
     },
