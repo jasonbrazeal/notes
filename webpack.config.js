@@ -16,22 +16,22 @@ module.exports = {
     },
     output: {
         path: __dirname + '/build/public',
-        publicPath: 'http://localhost:2222/assets/',
+        publicPath: 'http://localhost:8000/assets/',
         filename: '[name].[chunkhash].js',
         chunkFilename: '[id].[chunkhash].js'
     },
     devServer: {
       contentBase: __dirname + '/build/public',
       // compress: true,
-      port: 2222,
-      // go to http://localhost:2222 for development
+      port: 8000,
+      // go to http://localhost:8000 for development
       // this proxy setting will forward requests to the flask dev server
       proxy: {
-       '/': {
+        '/': {
          target: 'http://localhost:5000',
          // pathRewrite: {'^/api' : ''}
+        }
       }
-    }
     },
 
     resolve: {

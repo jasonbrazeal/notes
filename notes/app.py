@@ -25,12 +25,16 @@ def create_app(settings_override=None):
 app = create_app()
 
 
-@app.route("/")
-def hello():
-    return render_template('index.html', title="notes!!!")
+@app.route('/')
+def index():
+    return render_template('index.html', title='notes!!!')
+
+@app.route('/notes')
+def notes():
+    return render_template('notes.html', title='notes!!!')
 
 # # without webpack you could serve static files like this for development
 # # either way, in production its best to let nginx or the main webserver serve them
-# @app.route("/assets/<path:filename>")
+# @app.route('/assets/<path:filename>')
 # def send_asset(filename):
 #     return send_from_directory(path.join(APP_DIR, 'assets'), filename)
