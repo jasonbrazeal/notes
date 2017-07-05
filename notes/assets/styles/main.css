@@ -1,3 +1,9 @@
 body {
     background-color: olive;
 }
+
+img {
+    margin: 4em;
+    width: 10%;
+    height: 10%;
+}

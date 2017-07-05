@@ -7,21 +7,21 @@ var rootAssetPath = './notes/assets';
 module.exports = {
     // context: __dirname,
     entry: {
-        app_js: [
+        app: [
             rootAssetPath + '/scripts/main.js'
         ],
-        app_css: [
-            rootAssetPath + '/styles/main.css'
-        ]
+        // app_css: [
+        //     rootAssetPath + '/styles/main.css'
+        // ]
     },
     output: {
         path: __dirname + '/build/public',
-        publicPath: 'http://localhost:2992/assets/',
+        publicPath: 'http://localhost:2222/assets/',
         filename: '[name].[chunkhash].js',
         chunkFilename: '[id].[chunkhash].js'
     },
     resolve: {
-        extensions: ['.js', '.css']
+        extensions: ['.js']
     },
     module: {
         rules: [
@@ -29,12 +29,20 @@ module.exports = {
             //     test: /\.js$/i, loader: 'script-loader',
             //     exclude: /node_modules/
             // },
+            // {
+            //     test: /\.js[x]?$/,
+            //     loaders: ['babel-loader?presets[]=es2015&presets[]=react'],
+            //     exclude: /(node_modules|bower_components)/
+            // },
             {
-                test: /\.css$/i,
-                // use: ExtractTextPlugin.extract({
-                //     fallback: 'style-loader',
-                //     use: 'css-loader'
-                // })
+                test: /\.(jpe?g|png|gif|svg([\?]?.*))$/i,
+                use: [
+                    'file-loader?&name=[name]_[hash].[ext]',
+                    'image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false'
+                ],
+            },
+            {
+                test: /\.less$/i,
                 use: [
                   {
                     loader: 'style-loader',
@@ -42,19 +50,66 @@ module.exports = {
                   {
                     loader: 'css-loader',
                   },
+                  {
+                    loader: 'less-loader',
+                  },
                 ],
             },
             {
-                test: /\.(jpe?g|png|gif|svg([\?]?.*))$/i,
+                test: /\.scss$/i,
                 use: [
-                    'file-loader?&name=[name]_[hash:8].[ext]',
-                    'image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false'
+                  {
+                    loader: 'style-loader',
+                  },
+                  {
+                    loader: 'css-loader',
+                  },
+                  {
+                    loader: 'postcss-loader',
+                  },
                 ],
-            }
+            },
+            {
+                test: /\.sass$/i,
+                use: [
+                  {
+                    loader: 'style!css!sass?sourceMap'
+                  }
+                ],
+            },
+            {
+                test: /\.woff$/,
+                loader: "url-loader?limit=10000&mimetype=application/font-woff&name=[name]_[hash:8].[ext]"
+            }, {
+                test: /\.woff2$/,
+                loader: "url-loader?limit=10000&mimetype=application/font-woff2&name=[name]_[hash:8].[ext]"
+            }, {
+                test: /\.(eot|ttf)$/,
+                loader: "file-loader?&name=[name]_[hash:8].[ext]"
+            },
+            {
+                test: /\.css$/i,
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: 'css-loader'
+                })
+                // use: [
+                //   {
+                //     loader: 'style-loader',
+                //   },
+                //   {
+                //     loader: 'css-loader',
+                //   },
+                // ],
+            },
+
         ]
     },
     plugins: [
-        // new ExtractTextPlugin('[name].[chunkhash].css'),
+        new ExtractTextPlugin({
+            filename: '[name].[chunkhash].css',
+            allChunks: true
+        }),
         new ManifestRevisionPlugin(path.join('build', 'manifest.json'), {
             rootAssetPath: rootAssetPath,
             ignorePaths: ['/styles', '/scripts']
