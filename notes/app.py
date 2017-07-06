@@ -3,10 +3,12 @@
 import os
 from os import pardir
 from pathlib import Path
+import mimetypes
 
-from flask import Flask, render_template, send_from_directory, jsonify, request, send_file
+from flask import Flask, render_template, send_from_directory, jsonify, request, Response
 from flask_webpack import Webpack
 
+import markdown
 APP_DIR = os.path.dirname(__file__)
 BUILD_DIR = os.path.join(os.path.abspath(os.path.join(APP_DIR, pardir)), 'build')
 NOTES_DIR = '/Users/jsonbrazeal/Dropbox/Notes'
@@ -29,14 +31,24 @@ def index():
 @app.route('/notes/<path:relpath>')
 @app.route('/notes/', defaults={'relpath': ''})
 def notes(relpath):
-    print('###')
-    print(relpath)
     notes = get_notes(relpath)
     if notes:
         notes = notes['children']
         if notes is None:
             filename = Path(relpath).parts[-1]
             abspath = os.path.join(NOTES_DIR, relpath)
+            _, file_extension = os.path.splitext(relpath)
+            if file_extension == '.md':
+                with open(abspath, mode='r', encoding='utf-8') as f:
+                    html = markdown.markdown(f.read(), output_format='html5')
+                return Response(html, mimetype='text/html')
+            else:
+                file_mime = mimetypes.guess_type(abspath)[0]
+                if file_mime in (None, 'text/html'):
+                    file_mime = 'text/plain'
+                return send_from_directory(directory=Path(abspath).parent, filename=filename, mimetype=file_mime)
+
+
             return send_from_directory(directory=Path(abspath).parent, filename=filename, mimetype='text/plain')
     else:
         notes = [{'name': 'path not found'}]
