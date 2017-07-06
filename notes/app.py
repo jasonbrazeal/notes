@@ -5,11 +5,15 @@ from os import pardir
 from pathlib import Path
 import mimetypes
 
-from flask import Flask, render_template, send_from_directory, jsonify, request, Response
+from flask import Flask, render_template, send_from_directory, jsonify, request, Response, Markup
 from flask_webpack import Webpack
 
 import markdown
 from mdx_gfm import GithubFlavoredMarkdownExtension
+from pygments import highlight
+from pygments.lexers import PythonLexer, RubyLexer, JavascriptLexer, HtmlLexer, CssLexer
+from pygments.formatters import HtmlFormatter
+
 
 APP_DIR = os.path.dirname(__file__)
 BUILD_DIR = os.path.join(os.path.abspath(os.path.join(APP_DIR, pardir)), 'build')
@@ -45,7 +49,21 @@ def notes(relpath):
             if file_extension == '.md':
                 with open(abspath, mode='r', encoding='utf-8') as f:
                     html = markdown.markdown(f.read(), output_format='html5', extensions=[GithubFlavoredMarkdownExtension()])
-                return Response(html, mimetype='text/html')
+                return render_template('content_container.html', content=Markup(html))
+            elif file_extension in ('.py', '.rb', '.js', '.html', '.css'):
+                if file_extension == '.py':
+                    lexer = PythonLexer()
+                elif file_extension == '.rb':
+                    lexer = RubyLexer()
+                elif file_extension == '.js':
+                    lexer = JavascriptLexer()
+                elif file_extension == '.html':
+                    lexer = HtmlLexer()
+                elif file_extension == '.css':
+                    lexer = CssLexer()
+                with open(abspath, mode='r', encoding='utf-8') as f:
+                    html = highlight(f.read(), lexer, HtmlFormatter())
+                return render_template('content_container.html', content=Markup(html))
             else:
                 file_mime = mimetypes.guess_type(abspath)[0]
                 if file_mime in (None, 'text/html'):
