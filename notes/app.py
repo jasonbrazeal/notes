@@ -42,7 +42,10 @@ def notes(relpath):
         notes = [{'name': 'path not found'}]
     if request_wants_json(request):
         return jsonify(notes)
-    return render_template('notes.html', notes=notes, path=relpath)
+    path_links = {}
+    for i, d in enumerate(relpath.split('/')):
+        path_links[d] = ''.join([f'/{folder}' for folder in relpath.split('/')[:(i + 1)]])
+    return render_template('notes.html', notes=notes, path_links=path_links)
 
 # # without webpack you could serve static files like this for development
 # # either way, in production its best to let nginx or the main webserver serve them

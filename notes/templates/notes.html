@@ -328,7 +328,8 @@ ul#files.view-details li.header {
   <body class="directory">
     <input id="search" type="text" placeholder="Search" autocomplete="off" />
     <div id="wrapper">
-      <h1><a href="">~</a>/{{ path }}</h1>
+      <h1><a href="/notes">~</a>{% for d, path_link in path_links.items() %}<a href="/notes{{ path_link }}">/{{ d }}</a>{% endfor %}
+      </h1>
       <ul id="files" class="view-tiles">
       {% for item in notes %}
       <li>
