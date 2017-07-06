@@ -328,17 +328,18 @@ ul#files.view-details li.header {
   <body class="directory">
     <input id="search" type="text" placeholder="Search" autocomplete="off" />
     <div id="wrapper">
-      <h1><a href="/">~</a> / </h1>
-      <ul id="files" class="view-tiles"><li><a href="/app.c980026cbe5024623411.css" class="" title="app.c980026cbe5024623411.css"><span class="name">app.c980026cbe5024623411.css</span><span class="size">146237</span><span class="date">7/5/2017 8:39:46 AM</span></a></li>
-<li><a href="/app.c980026cbe5024623411.js" class="" title="app.c980026cbe5024623411.js"><span class="name">app.c980026cbe5024623411.js</span><span class="size">752291</span><span class="date">7/5/2017 8:39:46 AM</span></a></li>
-<li><a href="/app.f09ef8c4a5b62b910b44.css" class="" title="app.f09ef8c4a5b62b910b44.css"><span class="name">app.f09ef8c4a5b62b910b44.css</span><span class="size">146237</span><span class="date">7/5/2017 8:41:21 AM</span></a></li>
-<li><a href="/app.f09ef8c4a5b62b910b44.js" class="" title="app.f09ef8c4a5b62b910b44.js"><span class="name">app.f09ef8c4a5b62b910b44.js</span><span class="size">752211</span><span class="date">7/5/2017 8:41:21 AM</span></a></li>
-<li><a href="/dratini_9062569fc1532a3207d88d6ed5ea3586.png" class="" title="dratini_9062569fc1532a3207d88d6ed5ea3586.png"><span class="name">dratini_9062569fc1532a3207d88d6ed5ea3586.png</span><span class="size">23803</span><span class="date">7/5/2017 8:41:21 AM</span></a></li>
-<li><a href="/glyphicons-halflings-regular_448c34a5.woff2" class="" title="glyphicons-halflings-regular_448c34a5.woff2"><span class="name">glyphicons-halflings-regular_448c34a5.woff2</span><span class="size">18028</span><span class="date">7/5/2017 8:41:21 AM</span></a></li>
-<li><a href="/glyphicons-halflings-regular_46661d6d65debc63884004fed6e37e5c.svg" class="" title="glyphicons-halflings-regular_46661d6d65debc63884004fed6e37e5c.svg"><span class="name">glyphicons-halflings-regular_46661d6d65debc63884004fed6e37e5c.svg</span><span class="size">41</span><span class="date">7/5/2017 8:41:21 AM</span></a></li>
-<li><a href="/glyphicons-halflings-regular_e18bbf61.ttf" class="" title="glyphicons-halflings-regular_e18bbf61.ttf"><span class="name">glyphicons-halflings-regular_e18bbf61.ttf</span><span class="size">45404</span><span class="date">7/5/2017 8:41:21 AM</span></a></li>
-<li><a href="/glyphicons-halflings-regular_f4769f9b.eot" class="" title="glyphicons-halflings-regular_f4769f9b.eot"><span class="name">glyphicons-halflings-regular_f4769f9b.eot</span><span class="size">20127</span><span class="date">7/5/2017 8:41:21 AM</span></a></li>
-<li><a href="/glyphicons-halflings-regular_fa277232.woff" class="" title="glyphicons-halflings-regular_fa277232.woff"><span class="name">glyphicons-halflings-regular_fa277232.woff</span><span class="size">23424</span><span class="date">7/5/2017 8:41:21 AM</span></a></li></ul>
+      <h1><a href="">~</a>/{{ path }}</h1>
+      <ul id="files" class="view-tiles">
+      {% for item in notes %}
+      <li>
+        <a href="/notes/{{ item.relpath }}" class="{% if item.type == 'dir' %}bg-info{% endif %}" title="">
+          <span class="name">{{ item.name }}</span>
+          <span class="size"></span>
+          <span class="date"></span>
+        </a>
+      </li>
+      {% endfor %}
+      </ul>
     </div>
 
 
