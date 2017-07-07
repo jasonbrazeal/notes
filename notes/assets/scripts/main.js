@@ -25,9 +25,16 @@ import React from 'react';
 //   document.getElementById('main')
 // );
 //////////////////// react example 2
-import { DynamicSearch, countries } from './app.jsx'
+// import { DynamicSearch, countries } from './app.jsx'
+// render(
+//   <DynamicSearch items={ countries } />,
+//   document.getElementById('main')
+// );
+
+//////////////////// react example 3
+import { NoteSearch, countries } from './app.jsx'
 render(
-  <DynamicSearch items={ countries } />,
+  <NoteSearch />,
   document.getElementById('main')
 );
 
