@@ -83,6 +83,7 @@ export class NoteSearch extends React.Component {
     super();
     // set up "this" for the handle change function
     this.handleChange = this.handleChange.bind(this);
+    // this.componentDidMount = this.componentDidMount.bind(this);
     this.state = {
       searchString: '',
       notes: [],
@@ -91,16 +92,30 @@ export class NoteSearch extends React.Component {
   }
 
   componentDidMount() {
-    var notes = Object.getOwnPropertyNames(this);
-    // get notes via ajax
-    this.setState({
-      notes: notes,
-      matches: notes
-    });
+    this.fetchNotes();
   }
 
    // componentWillUnmount() {
    // }
+
+  fetchNotes() {
+    fetch('/notes', {
+      headers:  {
+        'Accept': 'application/json'
+      }}).then((response) => {
+      if(response.ok) {
+        return response.json();
+      }
+      throw new Error('response status: ' + response.status);
+    }).then((data) => { // if you use a regular function call instead of the arrow,
+      this.setState({ // "this" won't work correctly
+        notes: data,
+        matches: data
+      });
+    }).catch((error) => {
+      console.log('fetch error: ' + error.message);
+    });
+  }
 
   // sets state, triggers render method
   handleChange(event){
@@ -109,10 +124,10 @@ export class NoteSearch extends React.Component {
     this.setState({
       searchString: searchString,
     });
-    // filter countries list by value from input box
+    // filter notes list by value from input box
     if(searchString.length > 0){
-      var matches = this.state.notes.filter(function(note){
-        return note.toLowerCase().match(searchString);
+      var matches = this.state.notes.filter((note) => {
+        return note.name.toLowerCase().match(searchString);
       });
       this.setState({
         matches: matches
@@ -129,8 +144,8 @@ export class NoteSearch extends React.Component {
       <div>
         <input type="text" value={this.state.searchString} onChange={this.handleChange} placeholder="Search..." />
         <ul>
-          { this.state.matches.map(function(note, i){
-            return <li key={i}>{note}</li>
+          { this.state.matches.map((note, i) => {
+            return <li key={i}>{note.name}</li>
           }) }
         </ul>
       </div>

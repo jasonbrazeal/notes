@@ -101,7 +101,7 @@ def get_notes(root_path):
         path = Path(path_str)
         notes = {'name': path.parts[-1],
                  'path': path_str,
-                 'relpath': path.relative_to(NOTES_DIR)}
+                 'relpath': str(path.relative_to(NOTES_DIR))}
         if path.is_dir():
             # print('  ' * recursion_depth + 'directory: {}'.format(path))
             notes.update({'type': 'dir',
@@ -121,5 +121,4 @@ def get_notes(root_path):
 
 def request_wants_json(request):
     best = request.accept_mimetypes.best_match(['application/json', 'text/html'])
-    print(best)
     return best == 'application/json' and request.accept_mimetypes[best] > request.accept_mimetypes['text/html']
