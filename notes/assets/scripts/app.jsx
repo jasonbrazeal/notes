@@ -119,9 +119,11 @@ export class NoteSearch extends React.Component {
       throw new Error('response status: ' + response.status);
     }).then((data) => { // if you use a regular function call instead of the arrow,
       this.setState({ // "this" won't work correctly
-        notes: data,
-        matches: data
+        notes: data['notes'],
+        matches: data['notes'],
+        pathLinks: data['path_links']
       });
+      console.log(data['path_links'])
     }).catch((error) => {
     });
   }
@@ -166,7 +168,20 @@ export class NoteSearch extends React.Component {
           transitionLeave={true}
           transitionLeaveTimeout={1000}>
         <div>
-        <h1><a href="/notes">~</a></h1>
+        <h1>
+        <a href="/notes">~/notes</a>
+        { window.location.pathname.replace(/(^\/)|(\/$)/g, "").split('/').map((dir, i) => {
+            if (dir == 'notes') {
+              return null
+            } else {
+              return (
+                <span key={ i }>/<a href={ `/notes${this.state.pathLinks[dir]}` }>{ dir }</a></span>
+              )
+            }
+        }) }
+
+
+        </h1>
           <input type="text" value={this.state.searchString} onChange={this.handleChange} placeholder="Search..." />
           <ul id="files" className="view-tiles">
             { this.state.matches.map((note, i) => {

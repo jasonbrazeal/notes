@@ -77,8 +77,11 @@ def notes(relpath):
         notes = [{'name': 'path not found'}]
     if request_wants_json(request):
         # return jsonify(notes)
+        path_links = {}
+        for i, d in enumerate(relpath.split('/')):
+            path_links[d] = ''.join([f'/{folder}' for folder in relpath.split('/')[:(i + 1)]])
         response = app.response_class(
-            response=json.dumps(notes),
+            response=json.dumps({'notes': notes, 'path_links': path_links}),
             status=200,
             mimetype='application/json',
         )
