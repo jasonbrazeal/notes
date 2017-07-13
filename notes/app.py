@@ -2,12 +2,13 @@
 
 import os
 from os import pardir
+import sys
 from pathlib import Path
 import mimetypes
 import json
 from datetime import datetime
 
-from flask import Flask, render_template, send_from_directory, jsonify, request, Response, Markup
+from flask import Flask, render_template, send_from_directory, jsonify, request, Response, Markup, cli
 from flask_webpack import Webpack
 
 import markdown
@@ -19,7 +20,7 @@ from pygments.formatters import HtmlFormatter
 
 APP_DIR = os.path.dirname(__file__)
 BUILD_DIR = os.path.join(os.path.abspath(os.path.join(APP_DIR, pardir)), 'build')
-NOTES_DIR = '/Users/jsonbrazeal/Dropbox/Notes'
+NOTES_DIR = os.environ.get('NOTES_DIR', None)
 
 def create_app(settings_override=None):
     webpack = Webpack()
@@ -31,6 +32,8 @@ def create_app(settings_override=None):
     return app
 
 app = create_app()
+
+# app = Flask(__name__, static_folder=NOTES_DIR)
 
 @app.route('/')
 def index():
@@ -135,3 +138,20 @@ def get_notes(root_path):
 def request_wants_json(request):
     best = request.accept_mimetypes.best_match(['application/json', 'text/html'])
     return best == 'application/json' and request.accept_mimetypes[best] > request.accept_mimetypes['text/html']
+
+# one way to run code before the app starts is to create a new cli command
+# `flask start` checks for the NOTES_DIR environment variable then runs the dev server
+import click
+@app.cli.command('start', short_help='checks NOTES_DIR and starts dev server')
+def start():
+    click.echo('')
+    if NOTES_DIR is None:
+        raise RuntimeError('NOTES_DIR environment variable must be set before running flask app.')
+    cli.run_command([])
+    # cli.run_command('')
+
+# another way to run code after `flask run`, but before the first request
+# @app.before_first_request
+# def check_notes_dir():
+#     if NOTES_DIR is None:
+#         raise RuntimeError('NOTES_DIR environment variable must be set before running flask app.')
