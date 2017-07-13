@@ -3,6 +3,7 @@ import '../styles/main.css';
 import '../styles/pygments.css';
 import { render } from 'react-dom';
 import React from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 //////////////////// react example 1
 //// import 1
@@ -32,11 +33,17 @@ import React from 'react';
 // );
 
 //////////////////// react example 3
-import { NoteSearch, countries } from './app.jsx'
+import { NoteSearch } from './app.jsx'
+
 render(
   <NoteSearch />,
-  document.getElementById('main')
+  document.getElementById('wrapper')
 );
+
+// render(
+// <NoteSearch />,
+// document.getElementById('wrapper')
+// );
 
 //////////////////// other module example
 

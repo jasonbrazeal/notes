@@ -4,6 +4,8 @@ import os
 from os import pardir
 from pathlib import Path
 import mimetypes
+import json
+from datetime import datetime
 
 from flask import Flask, render_template, send_from_directory, jsonify, request, Response, Markup
 from flask_webpack import Webpack
@@ -34,9 +36,10 @@ app = create_app()
 def index():
     return render_template('index.html', title='notes!!!')
 
-@app.route('/notes/<path:relpath>')
+@app.route('/notes/<path:relpath>/')
 @app.route('/notes/', defaults={'relpath': ''})
 def notes(relpath):
+    # import time;time.sleep(4)
     notes = get_notes(relpath)
     if notes:
         # directory:
@@ -73,11 +76,18 @@ def notes(relpath):
     else:
         notes = [{'name': 'path not found'}]
     if request_wants_json(request):
-        return jsonify(notes)
-    path_links = {}
-    for i, d in enumerate(relpath.split('/')):
-        path_links[d] = ''.join([f'/{folder}' for folder in relpath.split('/')[:(i + 1)]])
-    return render_template('notes.html', notes=notes, path_links=path_links)
+        # return jsonify(notes)
+        response = app.response_class(
+            response=json.dumps(notes),
+            status=200,
+            mimetype='application/json',
+        )
+        response.headers['Last-Modified'] = datetime.now()
+        response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0'
+        response.headers['Pragma'] = 'no-cache'
+        response.headers['Expires'] = '-1'
+        return response
+    return render_template('notes.html')
 
 # # without webpack you could serve static files like this for development
 # # either way, in production its best to let nginx or the main webserver serve them
