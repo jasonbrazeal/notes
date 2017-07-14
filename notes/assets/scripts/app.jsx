@@ -168,21 +168,19 @@ export class NoteSearch extends React.Component {
           transitionLeave={true}
           transitionLeaveTimeout={1000}>
         <div>
-        <h1>
-        <a href="/notes">~/notes</a>
-        { window.location.pathname.replace(/(^\/)|(\/$)/g, "").split('/').map((dir, i) => {
-            if (dir == 'notes') {
-              return null
-            } else {
-              return (
-                <span key={ i }>/<a href={ `/notes${this.state.pathLinks[dir]}` }>{ dir }</a></span>
-              )
-            }
-        }) }
-
-
-        </h1>
-          <input type="text" value={this.state.searchString} onChange={this.handleChange} placeholder="Search..." />
+        <h2>
+          <a href="/notes">notes</a>
+          { window.location.pathname.replace(/(^\/)|(\/$)/g, "").split('/').map((dir, i) => {
+              if (dir == 'notes') {
+                return null
+              } else {
+                return (
+                  <span key={ i }>/<a href={ `/notes${this.state.pathLinks[dir]}` }>{ dir }</a></span>
+                )
+              }
+          }) }
+        </h2>
+          <input id="search" value={this.state.searchString} onChange={this.handleChange} type="search" placeholder="Search" autocomplete="off" />
           <ul id="files" className="view-tiles">
             { this.state.matches.map((note, i) => {
               return (
