@@ -8,6 +8,12 @@ img {
     height: 10%;
 }
 
+h2 a:hover {
+    text-decoration: none;
+    font-weight: bold;
+    color: #555;
+}
+
 /* ReactCSSTransitionGroup stuff */
 
 /*.transition-enter {
@@ -35,10 +41,4 @@ img {
 .transition-appear.transition-appear-active {
   opacity: 1;
   transition: opacity 1s ease-in;
-}
-
-h2 a:hover {
-    text-decoration: none;
-    font-weight: bold;
-    color: #555;
 }
