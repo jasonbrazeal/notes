@@ -41,4 +41,5 @@ setup(
         'Pygments',
         'Werkzeug',
     ],
+    scripts=['bin/notes'],
 )
