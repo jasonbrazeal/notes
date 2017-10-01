@@ -14,7 +14,7 @@ then
 fi
 
 trap clean_up SIGHUP SIGINT SIGTERM
-cd build
+cd `dirname $(dirname "$FLASK_APP")`/build
 flask run &
 FLASK_PID=$!
 echo "Flask dev server serving app with PID $FLASK_PID"
