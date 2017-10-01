@@ -1,4 +1,5 @@
-import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
+// import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap.css';
 import '../styles/main.css';
 import '../styles/pygments.css';
 import { render } from 'react-dom';

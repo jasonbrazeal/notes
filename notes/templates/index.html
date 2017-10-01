@@ -1,10 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class="container">
-      <h1 class="text-info">{{ title }}</h1>
-       <a href="{{ url_for('notes') }}"><button type="button" class="btn btn-primary" aria-label="Left Align"><span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>Some text</button></a>
-      <div id="main">
-        <img src="{{ asset_url_for('images/note.png') }}">
-      </div>
-    </div>
+<a href="{{ url_for('notes') }}">
+  <div id="title-bar">
+    <!-- <img src="{{ asset_url_for('images/note.png') }}"> -->
+    <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.1" x="0px" y="0px" viewBox="0 0 100 125" id="note-svg">
+      <g transform="translate(0,-952.36218)">
+        <path style="color:#555;enable-background:accumulate;" d="m 22.000002,958.36219 c -2.216,0 -4,1.784 -4,4 l 0,80.00001 c 0,2.216 1.784,4 4,4 l 55.999996,0 c 2.216,0 4,-1.784 4,-4 l 0,-80.00001 c 0,-2.216 -1.784,-4 -4,-4 z m 8,15 40,0 c 1.104596,0 1.999996,0.8954 1.999996,2 0,1.1046 -0.8954,2 -1.999996,2 l -40,0 c -1.1046,0 -2,-0.8954 -2,-2 0,-1.1046 0.8954,-2 2,-2 z m 0,18 40,0 c 1.104596,0 1.999996,0.8954 1.999996,2 0,1.1046 -0.8954,2 -1.999996,2 l -40,0 c -1.1046,0 -2,-0.8954 -2,-2 0,-1.1046 0.8954,-2 2,-2 z m 0,18.00001 40,0 c 1.104596,0 1.999996,0.8954 1.999996,2 0,1.1046 -0.8954,2 -1.999996,2 l -40,0 c -1.1046,0 -2,-0.8954 -2,-2 0,-1.1046 0.8954,-2 2,-2 z m 0,18 26,0 c 1.1046,0 2,0.8954 2,2 0,1.1046 -0.8954,2 -2,2 l -26,0 c -1.1046,0 -2,-0.8954 -2,-2 0,-1.1046 0.8954,-2 2,-2 z" fill="#555" stroke="none" marker="none" visibility="visible" display="inline" overflow="visible" />
+      </g>
+    </svg>
+    <h1>{{ title }}</h1>
+  </div></a>
+</a>
+
 {% endblock %}

@@ -123,8 +123,8 @@ export class NoteSearch extends React.Component {
         matches: data['notes'],
         pathLinks: data['path_links']
       });
-      console.log(data['path_links'])
     }).catch((error) => {
+      console.log(error)
     });
   }
 
@@ -180,7 +180,7 @@ export class NoteSearch extends React.Component {
               }
           }) }
         </h2>
-          <input id="search" value={this.state.searchString} onChange={this.handleChange} type="search" placeholder="Search" autocomplete="off" />
+          <input id="search" value={this.state.searchString} onChange={this.handleChange} type="search" placeholder="Search" autoComplete="off" />
           <ul id="files" className="view-tiles">
             { this.state.matches.map((note, i) => {
               return (

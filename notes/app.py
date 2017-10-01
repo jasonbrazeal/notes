@@ -24,7 +24,7 @@ NOTES_DIR = os.environ.get('NOTES_DIR', None)
 
 def create_app(settings_override=None):
     webpack = Webpack()
-    app = Flask(__name__, static_folder=NOTES_DIR)
+    app = Flask(__name__, static_folder=BUILD_DIR)
     app.config.update({'WEBPACK_MANIFEST_PATH': os.path.join(BUILD_DIR, 'manifest.json')})
     if settings_override:
         app.config.update(settings_override)
@@ -33,11 +33,9 @@ def create_app(settings_override=None):
 
 app = create_app()
 
-# app = Flask(__name__, static_folder=NOTES_DIR)
-
 @app.route('/')
 def index():
-    return render_template('index.html', title='notes!!!')
+    return render_template('index.html', title='notes...')
 
 @app.route('/notes/<path:relpath>/')
 @app.route('/notes/', defaults={'relpath': ''})

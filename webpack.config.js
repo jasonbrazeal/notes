@@ -15,13 +15,13 @@ module.exports = {
         // ]
     },
     output: {
-        path: __dirname + '/build/public',
+        path: __dirname + '/build/assets/',
         publicPath: 'http://localhost:8000/assets/',
         filename: '[name].[chunkhash].js',
         chunkFilename: '[id].[chunkhash].js'
     },
     devServer: {
-      contentBase: __dirname + '/build/public',
+      contentBase: __dirname + '/build/',
       // compress: true,
       port: 8000,
       // go to http://localhost:8000 for development
@@ -54,7 +54,7 @@ module.exports = {
             {
                 test: /\.(jpe?g|png|gif|svg([\?]?.*))$/i,
                 use: [
-                    'file-loader?&name=[name]_[hash].[ext]',
+                    'file-loader?&name=[name]_[hash:8].[ext]',
                     'image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false'
                 ],
             },
@@ -73,18 +73,24 @@ module.exports = {
                 ],
             },
             {
-                test: /\.scss$/i,
-                use: [
-                  {
-                    loader: 'style-loader',
-                  },
-                  {
-                    loader: 'css-loader',
-                  },
-                  {
-                    loader: 'postcss-loader',
-                  },
-                ],
+              test: /\.(scss)$/,
+              use: [{
+                loader: 'style-loader', // inject CSS to page
+              }, {
+                loader: 'css-loader', // translates CSS into CommonJS modules
+              }, {
+                loader: 'postcss-loader', // Run post css actions
+                options: {
+                  plugins: function () { // post css plugins, can be exported to postcss.config.js
+                    return [
+                      require('precss'),
+                      require('autoprefixer')
+                    ];
+                  }
+                }
+              }, {
+                loader: 'sass-loader' // compiles SASS to CSS
+              }]
             },
             {
                 test: /\.sass$/i,
