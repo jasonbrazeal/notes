@@ -10,7 +10,7 @@ from codecs import open
 from os import path
 
 package_dir = path.abspath(path.dirname(__file__))
-with open(path.join(package_dir, 'README.rst'), encoding='utf-8') as f:
+with open(path.join(package_dir, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
